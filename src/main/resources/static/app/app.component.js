@@ -7,12 +7,20 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 var core_1 = require('@angular/core');
 var AppComponent = (function () {
-    function AppComponent() {
+    function AppComponent(birdIdentifierService) {
+        this.birdIdentifierService = birdIdentifierService;
     }
+    AppComponent.prototype.onChange = function (event) {
+        var eventObj = event;
+        var target = eventObj.target;
+        var files = target.files;
+        this.file = files[0];
+        var uploadResult = this.birdIdentifierService.uploadPhoto(this.file);
+    };
     AppComponent = __decorate([
         core_1.Component({
             selector: 'my-app',
-            template: "<input type=\"file\" accept=\"image/*;capture=camera\">",
+            template: "<input type=\"file\" accept=\"image/*;capture=camera\"  (change)=\"onChange($event)\">",
             styles: ["\n  #mapid { height: 90%; }\n\n"],
         })
     ], AppComponent);
